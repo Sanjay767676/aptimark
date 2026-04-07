@@ -1,0 +1,153 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space+Grotesk", sans-serif;
+  
+  --color-brand-primary: #00d2ff;
+  --color-brand-secondary: #9d50bb;
+  --color-bg-lite: #f8fafc;
+  --color-glass: rgba(255, 255, 255, 0.4);
+  --color-glass-border: rgba(255, 255, 255, 0.5);
+}
+
+@layer base {
+  body {
+    background-color: var(--color-bg-lite);
+    color: #0f172a;
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.04em;
+    color: #0f172a;
+    font-weight: 700;
+  }
+}
+
+@layer utilities {
+  /* Optimized Liquid Glass Effect */
+  .liquid-glass {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 
+      0 8px 32px 0 rgba(31, 38, 135, 0.04),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    transform: translateZ(0); /* Force hardware acceleration */
+  }
+
+  .liquid-glass::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.15) 0%, transparent 60%);
+    transform: rotate(30deg);
+    pointer-events: none;
+    animation: liquid-shimmer 15s infinite linear;
+    will-change: transform;
+    z-index: -1;
+  }
+
+  @keyframes liquid-shimmer {
+    0% { transform: translate(-3%, -3%) rotate(0deg); }
+    100% { transform: translate(3%, 3%) rotate(360deg); }
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px) saturate(140%);
+    -webkit-backdrop-filter: blur(10px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 2.5rem;
+    box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.03);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .glass-card:hover {
+    background: rgba(255, 255, 255, 0.5);
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.06);
+  }
+
+  /* Optimized Mesh Gradient Background */
+  .mesh-bg {
+    background-color: #f8fafc;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(0, 210, 255, 0.05) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(157, 80, 187, 0.05) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(0, 210, 255, 0.05) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, rgba(157, 80, 187, 0.05) 0px, transparent 50%);
+    background-attachment: fixed;
+  }
+
+  /* Border Glow Effect (Reactbits style) */
+  .border-glow {
+    position: relative;
+    z-index: 0;
+  }
+
+  .border-glow::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(45deg, #00d2ff, #9d50bb, #00d2ff, #9d50bb);
+    background-size: 400% 400%;
+    z-index: -1;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    filter: blur(8px);
+    animation: border-glow-anim 10s ease infinite;
+  }
+
+  .border-glow:hover::before {
+    opacity: 0.6;
+  }
+
+  @keyframes border-glow-anim {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .text-gradient {
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(135deg, #00d2ff 0%, #9d50bb 100%);
+  }
+
+  .grid-bg {
+    background-image: 
+      linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* Jitter-style Text Animation Classes */
+  .jitter-text span {
+    display: inline-block;
+    will-change: transform, opacity;
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+}
