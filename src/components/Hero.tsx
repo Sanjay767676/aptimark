@@ -100,7 +100,7 @@ export default function Hero() {
 
         <div className="container mx-auto px-6 relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-16">
-            <div className="lg:w-3/5 text-center lg:text-left">
+            <div className="lg:w-3/5 text-left">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -118,12 +118,12 @@ export default function Hero() {
                 Digital Futures.
               </h1>
 
-              <p ref={subtitleRef} className="text-slate-600 text-xl md:text-2xl mb-14 max-w-2xl mx-auto lg:mx-0 font-medium leading-relaxed opacity-80">
+              <p ref={subtitleRef} className="text-slate-600 text-xl md:text-2xl mb-14 max-w-2xl font-medium leading-relaxed opacity-80">
                 Aptimark Solutions bridges the gap between complex technology and business success 
                 through high-performance digital experiences and AI.
               </p>
 
-              <div className="hero-cta flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6">
+              <div className="hero-cta flex flex-col sm:flex-row items-start gap-6">
                 <a 
                   href="#contact" 
                   className="group px-12 py-6 bg-slate-900 text-white rounded-2xl font-bold text-sm uppercase tracking-widest hover:bg-brand-primary transition-all duration-500 flex items-center gap-3 shadow-2xl shadow-slate-900/30"

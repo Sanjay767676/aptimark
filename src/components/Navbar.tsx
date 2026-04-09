@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import logoHead from '../../logo_head.png';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,10 +33,14 @@ export default function Navbar() {
           }`}>
             {/* Logo */}
             <a href="#" className="flex items-center space-x-4 group">
-              <div className="w-12 h-12 bg-slate-900 rounded-2xl flex items-center justify-center group-hover:bg-brand-primary transition-all duration-500 shadow-2xl shadow-slate-900/30">
-                <span className="text-white font-bold text-2xl tracking-tighter">A</span>
+              <div className="w-12 h-12 rounded-2xl overflow-hidden shadow-2xl shadow-slate-900/30">
+                <img
+                  src={logoHead}
+                  alt="Aptimark logo"
+                  className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
+                />
               </div>
-              <span className="text-2xl font-display font-bold tracking-tighter text-slate-900">
+              <span className="text-2xl leading-none font-display font-bold tracking-tighter text-slate-900">
                 Aptimark<span className="text-brand-primary">.</span>
               </span>
             </a>
