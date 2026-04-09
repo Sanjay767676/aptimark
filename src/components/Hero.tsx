@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, Sparkles, Star } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import SplitType from 'split-type';
@@ -101,17 +101,6 @@ export default function Hero() {
         <div className="container mx-auto px-6 relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-16">
             <div className="lg:w-3/5 text-left">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full liquid-glass mb-8 shadow-sm"
-              >
-                <Star size={14} className="text-brand-primary fill-brand-primary" />
-                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-600">
-                  Next-Gen Digital Solutions
-                </span>
-              </motion.div>
-
               <h1 ref={titleRef} className="text-6xl md:text-[110px] font-display font-bold leading-[0.85] mb-10 text-slate-900 tracking-[-0.06em] perspective-1000">
                 Engineering <br />
                 <span className="text-gradient">Intelligent</span> <br />
