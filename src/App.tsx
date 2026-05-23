@@ -28,11 +28,15 @@ import ServiceModal from './components/ServiceModal';
 import ProjectModal from './components/ProjectModal';
 import HeroHeadline from './components/animations/HeroHeadline';
 import HeroEntrance from './components/animations/HeroEntrance';
+import OpeningSplash from './components/animations/OpeningSplash';
 import { useScrollAnimations } from './hooks/useScrollAnimations';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function App() {
+  const [splashComplete, setSplashComplete] = useState(false);
+
   // Navigation active anchors tracker
   const [activeSection, setActiveSection] = useState('hero');
 
@@ -85,7 +89,7 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useScrollAnimations();
+  useScrollAnimations(splashComplete);
 
   const navLogoRef = useRef<HTMLAnchorElement>(null);
 
@@ -133,9 +137,15 @@ export default function App() {
     }
   };
 
+  const handleSplashComplete = () => {
+    setSplashComplete(true);
+    requestAnimationFrame(() => ScrollTrigger.refresh());
+  };
+
   return (
     <div className="min-h-screen bg-brand-bg text-brand-charcoal selection:bg-brand-primary/20 selection:text-brand-primary scroll-smooth">
-      
+      {!splashComplete && <OpeningSplash onComplete={handleSplashComplete} />}
+
       {/* 1. STICKY HEADER NAVIGATION */}
       <nav className="nav-liquid-glass w-full">
         <div className="relative z-10 flex justify-between items-center px-6 sm:px-10 py-5 max-w-7xl mx-auto">
@@ -236,7 +246,7 @@ export default function App() {
       </nav>
 
       {/* 2. HERO LANDING BANNER SECTION */}
-      <section id="hero" className="relative min-h-[92vh] flex items-center justify-center pt-32 pb-24 hero-gradient overflow-hidden">
+      <section id="hero" className="relative min-h-[92vh] flex items-center justify-center pt-32 pb-24 hero-gradient overflow-x-hidden">
         {/* Decorative Sun-Baked Ambient Glow Balls */}
         <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
           <div className="absolute top-[-10%] right-[-10%] w-[580px] h-[580px] bg-[#fbe8d8] rounded-full blur-[130px] animate-pulse duration-[10s]" />

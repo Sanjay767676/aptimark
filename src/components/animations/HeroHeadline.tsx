@@ -12,7 +12,7 @@ function splitChars(el: HTMLElement, text: string): HTMLSpanElement[] {
 
   text.split('').forEach((char) => {
     const mask = document.createElement('span');
-    mask.className = 'inline-block overflow-hidden align-baseline';
+    mask.className = 'hero-char-mask';
     const inner = document.createElement('span');
     inner.className = 'inline-block';
     inner.textContent = char === ' ' ? '\u00A0' : char;
@@ -121,6 +121,14 @@ export default function HeroHeadline() {
             autoAlpha: 1,
             duration: 1,
             ease: 'power2.out',
+            onComplete: () => {
+              digital.querySelectorAll('.hero-char-mask').forEach((mask) => {
+                (mask as HTMLElement).style.overflow = 'visible';
+              });
+              experiences.querySelectorAll('.hero-char-mask').forEach((mask) => {
+                (mask as HTMLElement).style.overflow = 'visible';
+              });
+            },
           },
           '-=0.55'
         );
@@ -134,7 +142,7 @@ export default function HeroHeadline() {
   return (
     <h1
       ref={containerRef}
-      className="hero-headline font-headline text-[2.75rem] sm:text-[4rem] md:text-[5.5rem] lg:text-[6.5rem] text-brand-charcoal tracking-tight max-w-4xl mx-auto mb-10 font-bold select-none text-center"
+      className="hero-headline font-headline text-[2.75rem] sm:text-[4rem] md:text-[5.5rem] lg:text-[6.5rem] text-brand-charcoal tracking-tight max-w-4xl mx-auto mb-10 font-bold select-none text-center overflow-visible"
     >
       <span className="hero-headline-line block">
         <span ref={weBuildRef} className="inline">

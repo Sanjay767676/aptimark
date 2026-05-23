@@ -4,8 +4,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export function useScrollAnimations() {
+export function useScrollAnimations(enabled = true) {
   useEffect(() => {
+    if (!enabled) return;
+
     const mm = gsap.matchMedia();
 
     mm.add('(prefers-reduced-motion: reduce)', () => {
@@ -140,5 +142,5 @@ export function useScrollAnimations() {
       mm.revert();
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
-  }, []);
+  }, [enabled]);
 }
