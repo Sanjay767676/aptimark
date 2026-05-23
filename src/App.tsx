@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+import aptimarkLogo from './aptimarkogo.png';
 import {
   Globe,
   Search,
@@ -25,6 +26,11 @@ import { Service, ProcessStep, PortfolioProject } from './types';
 
 import ServiceModal from './components/ServiceModal';
 import ProjectModal from './components/ProjectModal';
+import HeroHeadline from './components/animations/HeroHeadline';
+import HeroEntrance from './components/animations/HeroEntrance';
+import { useScrollAnimations } from './hooks/useScrollAnimations';
+
+gsap.registerPlugin(useGSAP);
 
 export default function App() {
   // Navigation active anchors tracker
@@ -79,87 +85,33 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // GSAP Scroll Reveal effect implementation
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+  useScrollAnimations();
 
-    // 1. Mask reveal for grand headings
-    const maskTargets = document.querySelectorAll('.gsap-mask-reveal');
-    maskTargets.forEach((target) => {
-      gsap.fromTo(
-        target,
-        {
-          clipPath: 'polygon(0 100%, 100% 100%, 100% 100%, 0 100%)',
-          y: 40,
-        },
-        {
-          clipPath: 'polygon(0 0%, 100% 0%, 100% 100%, 0 100%)',
-          y: 0,
-          duration: 1.4,
-          ease: 'power4.out',
-          scrollTrigger: {
-            trigger: target,
-            start: 'top 90%',
-            toggleActions: 'play none none none',
-          },
-        }
-      );
-    });
+  const navLogoRef = useRef<HTMLAnchorElement>(null);
 
-    // 2. Class-specific standard fade reveal
-    const revealTargets = document.querySelectorAll('.gsap-reveal-text');
-    revealTargets.forEach((target) => {
-      gsap.fromTo(
-        target,
-        {
-          y: 40,
-          opacity: 0,
-        },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1.0,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: target,
-            start: 'top 88%',
-            toggleActions: 'play none none none',
-          },
-        }
-      );
-    });
+  useGSAP(
+    () => {
+      const logo = navLogoRef.current;
+      if (!logo) return;
 
-    // 3. Stagger container reveal
-    const staggerContainers = document.querySelectorAll('.gsap-stagger-container');
-    staggerContainers.forEach((container) => {
-      const children = container.querySelectorAll('.gsap-stagger-child');
-      if (children.length > 0) {
+      const mm = gsap.matchMedia();
+
+      mm.add('(prefers-reduced-motion: reduce)', () => {
+        gsap.set(logo, { autoAlpha: 1, clearProps: 'all' });
+      });
+
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
         gsap.fromTo(
-          children,
-          {
-            y: 30,
-            opacity: 0,
-          },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.8,
-            stagger: 0.12,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: container,
-              start: 'top 85%',
-              toggleActions: 'play none none none',
-            },
-          }
+          logo,
+          { y: -12, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 0.85, ease: 'power3.out', delay: 0.05 }
         );
-      }
-    });
+      });
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
+      return () => mm.revert();
+    },
+    { scope: navLogoRef }
+  );
 
   const nextTestimonial = () => {
     setActiveTestimonialIdx((prev) => (prev + 1) % TESTIMONIALS_DATA.length);
@@ -185,16 +137,15 @@ export default function App() {
     <div className="min-h-screen bg-brand-bg text-brand-charcoal selection:bg-brand-primary/20 selection:text-brand-primary scroll-smooth">
       
       {/* 1. STICKY HEADER NAVIGATION */}
-      <nav className="fixed top-0 w-full z-40 bg-brand-bg/85 backdrop-blur-md border-b border-brand-outline/40">
-        <div className="flex justify-between items-center px-6 sm:px-10 py-5 max-w-7xl mx-auto">
+      <nav className="nav-liquid-glass w-full">
+        <div className="relative z-10 flex justify-between items-center px-6 sm:px-10 py-5 max-w-7xl mx-auto">
           {/* Logo Name */}
-          <a href="#hero" className="flex items-center gap-3 font-headline text-2.5xl font-bold tracking-tight text-brand-charcoal select-none group">
-            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="7.5" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 text-brand-primary transform -translate-y-0.5">
-              <circle cx="14" cy="74" r="5" fill="currentColor" stroke="none" />
-              <path d="M 32 50 C 18 46, 12 68, 22 76 C 32 84, 40 68, 52 48 C 60 36, 68 24, 76 16" />
-              <path d="M 56 18 L 76 16 L 72 36" />
-              <path d="M 45 68 C 48 54, 54 54, 57 72 C 60 54, 66 54, 69 72 C 72 54, 78 54, 81 72 C 83 76, 86 76, 89 68" />
-            </svg>
+          <a ref={navLogoRef} href="#hero" className="flex items-center gap-3 font-headline text-2.5xl font-bold tracking-tight text-brand-charcoal select-none group">
+            <img
+              src={aptimarkLogo}
+              alt="Aptimark"
+              className="w-9 h-9 object-contain transform -translate-y-0.5"
+            />
             <span>APTIMARK<span className="text-brand-primary transition-all group-hover:pl-0.5">.</span></span>
           </a>
 
@@ -249,7 +200,7 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.25 }}
-              className="absolute top-full left-0 w-full bg-brand-bg/98 border-b border-brand-outline/30 backdrop-blur-xl flex flex-col p-6 space-y-4 shadow-xl z-30"
+              className="nav-liquid-glass-panel absolute top-full left-0 w-full flex flex-col p-6 space-y-4 z-30"
             >
               {[
                 { label: 'Capabilities', href: '#capabilities' },
@@ -293,15 +244,15 @@ export default function App() {
         </div>
 
         <div className="container mx-auto px-6 sm:px-10 relative z-10 text-center max-w-5xl">
-          <h1 className="font-headline text-[2.75rem] sm:text-[4rem] md:text-[5.5rem] lg:text-[6.5rem] text-brand-charcoal leading-[1.05] tracking-tight max-w-4xl mx-auto mb-10 font-bold select-none gsap-mask-reveal">
-            We Build <span className="italic text-brand-primary font-medium">Digital Experiences</span> That Perform
-          </h1>
+          <HeroHeadline />
 
-          <p className="font-sans text-base sm:text-lg md:text-xl text-brand-text-muted max-w-2xl mx-auto mb-12 leading-relaxed gsap-reveal-text">
-            Engineering sun-baked elegance into every line of code. Where minimalism meets absolute performance under rigorous benchmark testing.
-          </p>
+          <HeroEntrance delay={0.95}>
+            <p className="font-sans text-base sm:text-lg md:text-xl text-brand-text-muted max-w-2xl mx-auto mb-12 leading-relaxed">
+              Engineering sun-baked elegance into every line of code. Where minimalism meets absolute performance under rigorous benchmark testing.
+            </p>
+          </HeroEntrance>
 
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center max-w-md mx-auto items-stretch sm:items-center gsap-reveal-text" style={{ transitionDelay: '200ms' }}>
+          <HeroEntrance delay={1.15} className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center max-w-md mx-auto items-stretch sm:items-center">
             <button
               id="hero-cta-start-project"
               onClick={handleScrollToContact}
@@ -316,9 +267,9 @@ export default function App() {
             >
               View Our Work
             </a>
-          </div>
+          </HeroEntrance>
 
-          <div className="pt-20 grid grid-cols-3 max-w-2xl mx-auto gap-4 border-t border-brand-outline-variant/40 mt-12">
+          <HeroEntrance delay={1.35} className="pt-20 grid grid-cols-3 max-w-2xl mx-auto gap-4 border-t border-brand-outline-variant/40 mt-12">
             {[
               { value: "0.4s", label: "Average Load Benchmarks" },
               { value: "99+", label: "Lighthouse Core Web Score" },
@@ -329,7 +280,7 @@ export default function App() {
                 <span className="font-sans text-[11px] sm:text-xs text-brand-text-muted mt-1 uppercase tracking-wider block font-semibold">{stat.label}</span>
               </div>
             ))}
-          </div>
+          </HeroEntrance>
         </div>
       </section>
 
@@ -337,25 +288,25 @@ export default function App() {
       <section id="capabilities" className="py-28 px-6 sm:px-10 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8 border-b border-brand-outline-variant/30 pb-10">
           <div className="max-w-xl text-left">
-            <span className="font-sans text-xs uppercase tracking-widest text-[#c2652a] font-bold mb-3 block">
+            <span className="font-sans text-xs uppercase tracking-widest text-[#c2652a] font-bold mb-3 block gsap-line-reveal">
               What We Do Best
             </span>
-            <h2 className="font-headline text-4xl sm:text-5xl lg:text-6xl text-brand-charcoal font-semibold tracking-tight">
+            <h2 className="font-headline text-4xl sm:text-5xl lg:text-6xl text-brand-charcoal font-semibold tracking-tight gsap-mask-reveal">
               Our expertise,<br />curated for growth.
             </h2>
           </div>
-          <p className="font-sans text-brand-text-muted max-w-sm text-base leading-relaxed text-left md:text-right">
+          <p className="font-sans text-brand-text-muted max-w-sm text-base leading-relaxed text-left md:text-right gsap-reveal-text">
             A comprehensive suite of digital services designed to scale with your ambition. Hand-crafted, tested, and fine-tuned for high benchmark scores.
           </p>
         </div>
 
         {/* Dynamic Bento Box Staggered Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start gsap-stagger-container">
           {/* Module 1: Website Development (7 Columns) */}
           <div
             id="service-card-web-dev"
             onClick={() => setSelectedService(SERVICES_DATA[0])}
-            className="md:col-span-7 group cursor-pointer"
+            className="md:col-span-7 group cursor-pointer gsap-scroll-card"
           >
             <div className="liquid-glass rounded-2xl p-8 sm:p-10 h-[460px] relative overflow-hidden transition-all duration-500 hover:-translate-y-2 border border-brand-outline/20 flex flex-col justify-between">
               <div>
@@ -365,7 +316,7 @@ export default function App() {
                     {SERVICES_DATA[0].badge}
                   </span>
                 </div>
-                <h3 className="font-headline text-3.5xl sm:text-4xl text-brand-charcoal font-semibold mt-6 mb-3">
+                <h3 className="font-headline text-3.5xl sm:text-4xl text-brand-charcoal font-semibold mt-6 mb-3 gsap-reveal-text">
                   {SERVICES_DATA[0].title}
                 </h3>
                 <p className="font-sans text-brand-text-muted text-base max-w-md leading-relaxed">
@@ -393,7 +344,7 @@ export default function App() {
           <div
             id="service-card-seo"
             onClick={() => setSelectedService(SERVICES_DATA[1])}
-            className="md:col-span-5 cursor-pointer group"
+            className="md:col-span-5 cursor-pointer group gsap-scroll-card"
           >
             <div className="bg-brand-surface-high rounded-2xl p-8 sm:p-10 h-[460px] flex flex-col justify-between transition-all duration-500 hover:-translate-y-2 border border-brand-outline-variant/40">
               <div className="space-y-6">
@@ -422,7 +373,7 @@ export default function App() {
           <div
             id="service-card-refactoring"
             onClick={() => setSelectedService(SERVICES_DATA[2])}
-            className="md:col-span-4 cursor-pointer group"
+            className="md:col-span-4 cursor-pointer group gsap-scroll-card"
           >
             <div className="bg-brand-primary text-brand-bg rounded-2xl p-8 sm:p-10 h-[420px] flex flex-col justify-between transition-all duration-500 hover:-translate-y-2">
               <div className="space-y-6">
@@ -448,7 +399,7 @@ export default function App() {
             <div
               id="service-card-app-dev"
               onClick={() => setSelectedService(SERVICES_DATA[3])}
-              className="liquid-glass rounded-2xl p-8 sm:p-10 h-[420px] flex flex-col justify-between transition-all duration-500 hover:-translate-y-2 cursor-pointer group border border-brand-outline/20"
+              className="liquid-glass rounded-2xl p-8 sm:p-10 h-[420px] flex flex-col justify-between transition-all duration-500 hover:-translate-y-2 cursor-pointer group border border-brand-outline/20 gsap-scroll-card"
             >
               <div className="space-y-6">
                 {renderServiceIcon('Smartphone')}
@@ -470,7 +421,7 @@ export default function App() {
             <div
               id="service-card-custom-it"
               onClick={() => setSelectedService(SERVICES_DATA[4])}
-              className="bg-brand-surface-container rounded-2xl p-8 sm:p-10 h-[420px] flex flex-col justify-between transition-all duration-500 hover:-translate-y-2 cursor-pointer group border border-brand-outline-variant/35"
+              className="bg-brand-surface-container rounded-2xl p-8 sm:p-10 h-[420px] flex flex-col justify-between transition-all duration-500 hover:-translate-y-2 cursor-pointer group border border-brand-outline-variant/35 gsap-scroll-card"
             >
               <div className="space-y-6">
                 {renderServiceIcon('Settings')}
@@ -495,14 +446,14 @@ export default function App() {
       <section id="methodology" className="py-28 bg-brand-surface-low overflow-hidden">
         <div className="px-6 sm:px-10 max-w-7xl mx-auto mb-16 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 text-left">
           <div className="max-w-xl">
-            <span className="font-sans text-xs uppercase tracking-widest text-brand-primary font-bold mb-3 block">
+            <span className="font-sans text-xs uppercase tracking-widest text-brand-primary font-bold mb-3 block gsap-line-reveal">
               The Methodology
             </span>
-            <h2 className="font-headline text-4xl sm:text-5xl lg:text-6xl text-brand-charcoal font-semibold tracking-tight">
+            <h2 className="font-headline text-4xl sm:text-5xl lg:text-6xl text-brand-charcoal font-semibold tracking-tight gsap-mask-reveal">
               Crafting with <br />disciplined intent.
             </h2>
           </div>
-          <p className="font-sans text-brand-text-muted text-base max-w-sm leading-relaxed">
+          <p className="font-sans text-brand-text-muted text-base max-w-sm leading-relaxed gsap-reveal-text">
             By shifting from ungrounded templates to strict milestones, we guarantee fluid, deterministic software deployment.
           </p>
         </div>
@@ -537,7 +488,7 @@ export default function App() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.35 }}
-                  className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white border border-brand-outline/25 p-6 sm:p-10 rounded-3xl shadow-sm"
+                  className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white border border-brand-outline/25 p-6 sm:p-10 rounded-3xl shadow-sm gsap-reveal"
                 >
                   {/* Left: Step Image (5 columns) */}
                   <div className="lg:col-span-5 relative group overflow-hidden rounded-2xl aspect-[4/3] lg:aspect-[4/5] h-full max-h-[380px] lg:max-h-[480px]">
@@ -555,13 +506,15 @@ export default function App() {
 
                   {/* Right: Step Description text (7 columns) */}
                   <div className="lg:col-span-7 space-y-6 text-left">
-                    <span className="font-headline text-6xl sm:text-7xl font-extrabold text-[#c2652a]/15 block">
-                      {step.numberString}
-                    </span>
-                    <h3 className="font-headline text-3xl sm:text-4xl text-brand-charcoal font-semibold mt-[-20px]">
-                      {step.title}
-                    </h3>
-                    <p className="font-sans text-brand-charcoal text-base sm:text-lg leading-relaxed">
+                    <div>
+                      <span className="font-headline text-6xl sm:text-7xl font-extrabold text-[#c2652a]/15 block leading-none">
+                        {step.numberString}
+                      </span>
+                      <h3 className="font-headline text-3xl sm:text-4xl text-brand-charcoal font-semibold mt-3 sm:mt-4 gsap-reveal-text">
+                        {step.title}
+                      </h3>
+                    </div>
+                    <p className="font-sans text-brand-charcoal text-base sm:text-lg leading-relaxed gsap-reveal-text">
                       {step.description}
                     </p>
                     <p className="font-sans text-brand-text-muted text-sm sm:text-base leading-relaxed bg-brand-surface-low p-5 rounded-2xl border border-brand-outline-variant/30 italic">
@@ -592,13 +545,13 @@ export default function App() {
       {/* 5. PORTFOLIO SELECTED WORKS PRESTIGE SECTION */}
       <section id="portfolio" className="py-28 px-6 sm:px-10 max-w-7xl mx-auto">
         <div className="text-center mb-24 space-y-4">
-          <span className="font-sans text-xs uppercase tracking-widest text-[#c2652a] font-bold block">
+          <span className="font-sans text-xs uppercase tracking-widest text-[#c2652a] font-bold block gsap-line-reveal">
             Pragmatic Mastery
           </span>
-          <h2 className="font-headline text-5xl sm:text-6xl text-brand-charcoal font-bold tracking-tight">
+          <h2 className="font-headline text-5xl sm:text-6xl text-brand-charcoal font-bold tracking-tight gsap-mask-reveal">
             Selected Works
           </h2>
-          <p className="font-sans text-base sm:text-lg text-brand-text-muted max-w-xl mx-auto leading-relaxed">
+          <p className="font-sans text-base sm:text-lg text-brand-text-muted max-w-xl mx-auto leading-relaxed gsap-reveal-text">
             Proof that performance and digital beauty can coexist seamlessly. No compromises on core web speed.
           </p>
         </div>
@@ -610,7 +563,7 @@ export default function App() {
             return (
               <div
                 key={project.id}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center"
+                className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center gsap-portfolio-row"
               >
                 {/* Visual Image Block */}
                 <div className={`lg:col-span-7 relative overflow-hidden rounded-3xl group shadow-md border border-brand-outline/20 aspect-video ${
@@ -632,10 +585,10 @@ export default function App() {
                   <span className="font-sans text-xs uppercase tracking-widest font-bold text-brand-primary mb-4 block">
                     {project.category}
                   </span>
-                  <h3 className="font-headline text-3.5xl sm:text-4.5xl text-brand-charcoal font-bold mb-4">
+                  <h3 className="font-headline text-3.5xl sm:text-4.5xl text-brand-charcoal font-bold mb-4 gsap-reveal-text">
                     {project.title}
                   </h3>
-                  <p className="font-sans text-brand-text-muted text-base sm:text-lg mb-8 leading-relaxed">
+                  <p className="font-sans text-brand-text-muted text-base sm:text-lg mb-8 leading-relaxed gsap-reveal-text">
                     {project.challenge.slice(0, 150)}... Our digital practitioners re-engineered the frontlines to secure outstanding loading and aesthetic scores.
                   </p>
 
@@ -667,12 +620,12 @@ export default function App() {
 
       {/* 6. TESTIMONIAL SLIDER CAROUSEL SECTION */}
       <section id="testimonials" className="py-24 bg-brand-surface-container border-y border-brand-outline-variant/40">
-        <div className="max-w-4xl mx-auto px-6 text-center space-y-10 relative">
-          <span className="font-sans text-xs uppercase tracking-widest text-[#c2652a] font-bold block">
+        <div className="max-w-4xl mx-auto px-6 text-center space-y-10 relative gsap-reveal">
+          <span className="font-sans text-xs uppercase tracking-widest text-[#c2652a] font-bold block gsap-line-reveal">
             Direct Client Appraisals
           </span>
 
-          <div className="relative min-h-[220px] flex items-center justify-center">
+          <div className="relative min-h-[220px] flex items-center justify-center gsap-reveal-text">
             <AnimatePresence mode="wait">
               {TESTIMONIALS_DATA.map((t, index) => {
                 if (index !== activeTestimonialIdx) return null;
@@ -898,12 +851,11 @@ export default function App() {
         <div className="flex flex-col md:flex-row justify-between items-center px-8 sm:px-12 py-16 gap-8 max-w-7xl mx-auto">
           <div className="text-center md:text-left space-y-2">
             <span className="flex items-center justify-center md:justify-start gap-2.5 font-headline text-2xl font-bold tracking-tight text-brand-charcoal select-none">
-              <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="7.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-brand-primary">
-                <circle cx="14" cy="74" r="5" fill="currentColor" stroke="none" />
-                <path d="M 32 50 C 18 46, 12 68, 22 76 C 32 84, 40 68, 52 48 C 60 36, 68 24, 76 16" />
-                <path d="M 56 18 L 76 16 L 72 36" />
-                <path d="M 45 68 C 48 54, 54 54, 57 72 C 60 54, 66 54, 69 72 C 72 54, 78 54, 81 72 C 83 76, 86 76, 89 68" />
-              </svg>
+              <img
+                src={aptimarkLogo}
+                alt="Aptimark"
+                className="w-7 h-7 object-contain"
+              />
               <span>APTIMARK<span className="text-brand-primary">.</span></span>
             </span>
             <p className="font-sans text-xs uppercase tracking-widest text-brand-text-muted/80 block">
