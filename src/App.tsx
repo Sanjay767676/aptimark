@@ -28,15 +28,12 @@ import ServiceModal from './components/ServiceModal';
 import ProjectModal from './components/ProjectModal';
 import HeroHeadline from './components/animations/HeroHeadline';
 import HeroEntrance from './components/animations/HeroEntrance';
-import OpeningSplash from './components/animations/OpeningSplash';
 import { useScrollAnimations } from './hooks/useScrollAnimations';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function App() {
-  const [splashComplete, setSplashComplete] = useState(false);
-
   // Navigation active anchors tracker
   const [activeSection, setActiveSection] = useState('hero');
 
@@ -70,26 +67,36 @@ export default function App() {
 
   // Track user scroll position for navbar background and scroll position spy
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = ['hero', 'capabilities', 'methodology', 'portfolio', 'testimonials', 'contact-us'];
-      
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 180 && rect.bottom >= 180) {
-            setActiveSection(section === 'contact-us' ? 'contact' : section);
-            break;
-          }
-        }
-      }
-    };
+    const sections = ['hero', 'capabilities', 'methodology', 'portfolio', 'testimonials', 'contact-us'];
+    const elements = sections
+      .map((section) => document.getElementById(section))
+      .filter((element): element is HTMLElement => Boolean(element));
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    if (!elements.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntries = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+        const current = visibleEntries[0];
+        if (!current?.target.id) return;
+
+        setActiveSection(current.target.id === 'contact-us' ? 'contact' : current.target.id);
+      },
+      {
+        root: null,
+        rootMargin: '-35% 0px -45% 0px',
+        threshold: [0.15, 0.3, 0.5, 0.75],
+      }
+    );
+
+    elements.forEach((element) => observer.observe(element));
+    return () => observer.disconnect();
   }, []);
 
-  useScrollAnimations(splashComplete);
+  useScrollAnimations();
 
   const navLogoRef = useRef<HTMLAnchorElement>(null);
 
@@ -137,15 +144,8 @@ export default function App() {
     }
   };
 
-  const handleSplashComplete = () => {
-    setSplashComplete(true);
-    requestAnimationFrame(() => ScrollTrigger.refresh());
-  };
-
   return (
     <div className="min-h-screen bg-brand-bg text-brand-charcoal selection:bg-brand-primary/20 selection:text-brand-primary scroll-smooth">
-      {!splashComplete && <OpeningSplash onComplete={handleSplashComplete} />}
-
       {/* 1. STICKY HEADER NAVIGATION */}
       <nav className="nav-liquid-glass w-full">
         <div className="relative z-10 flex justify-between items-center px-6 sm:px-10 py-5 max-w-7xl mx-auto">

@@ -26,53 +26,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Opening splash loader */
-.opening-splash {
-  background: #000000;
-}
-
-.opening-splash-logo {
-  letter-spacing: 0.14em;
-}
-
-.opening-splash-silver {
-  color: #e5e5e5;
-  background: linear-gradient(
-    165deg,
-    #ffffff 0%,
-    #d8d8d8 28%,
-    #b8b8b8 52%,
-    #ececec 78%,
-    #a8a8a8 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: none;
-}
-
-.opening-splash-cream {
-  color: #faf5ee;
-  -webkit-text-fill-color: #faf5ee;
-}
-
-.opening-splash-flash {
-  position: absolute;
-  width: min(70vw, 520px);
-  height: min(28vw, 140px);
-  border-radius: 50%;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(255, 255, 255, 0.95) 0%,
-    rgba(250, 245, 238, 0.35) 35%,
-    transparent 72%
-  );
-  filter: blur(28px);
-  transform: translate(-50%, -50%);
-  left: 50%;
-  top: 50%;
-}
-
 .font-headline {
   font-family: 'Eb Garamond', serif;
 }
