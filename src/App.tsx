@@ -28,6 +28,7 @@ import ServiceModal from './components/ServiceModal';
 import ProjectModal from './components/ProjectModal';
 import HeroHeadline from './components/animations/HeroHeadline';
 import HeroEntrance from './components/animations/HeroEntrance';
+import AptimarkWordmark, { AuroraText } from './components/animations/AptimarkWordmark';
 import { useScrollAnimations } from './hooks/useScrollAnimations';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -156,7 +157,7 @@ export default function App() {
               alt="Aptimark"
               className="w-9 h-9 object-contain transform -translate-y-0.5"
             />
-            <span>APTIMARK<span className="text-brand-primary transition-all group-hover:pl-0.5">.</span></span>
+            <AptimarkWordmark />
           </a>
 
           {/* Desktop Links */}
@@ -866,7 +867,7 @@ export default function App() {
                 alt="Aptimark"
                 className="w-7 h-7 object-contain"
               />
-              <span>APTIMARK<span className="text-brand-primary">.</span></span>
+              <span>APTIMARK</span>
             </span>
             <p className="font-sans text-xs uppercase tracking-widest text-brand-text-muted/80 block">
               © {new Date().getFullYear()} APTIMARK Solutions. Crafted with sun-baked precision.

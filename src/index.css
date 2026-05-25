@@ -19,6 +19,39 @@
   --color-brand-rose: #8c3c3c;
 }
 
+@theme inline {
+  --animate-aurora: aurora 8s ease-in-out infinite alternate;
+  --animate-blink-cursor: blink-cursor 0.8s step-end infinite;
+
+  @keyframes aurora {
+    0% {
+      background-position: 0% 50%;
+      transform: rotate(-5deg) scale(0.9);
+    }
+    25% {
+      background-position: 50% 100%;
+      transform: rotate(5deg) scale(1.1);
+    }
+    50% {
+      background-position: 100% 50%;
+      transform: rotate(-3deg) scale(0.95);
+    }
+    75% {
+      background-position: 50% 0%;
+      transform: rotate(3deg) scale(1.05);
+    }
+    100% {
+      background-position: 0% 50%;
+      transform: rotate(-5deg) scale(0.9);
+    }
+  }
+
+  @keyframes blink-cursor {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+}
+
 body {
   background-color: #faf5ee;
   color: #3a302a;
