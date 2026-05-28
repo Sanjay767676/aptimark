@@ -147,8 +147,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-brand-bg text-brand-charcoal selection:bg-brand-primary/20 selection:text-brand-primary scroll-smooth">
-      {/* 1. STICKY HEADER NAVIGATION */}
-      <nav className="nav-liquid-glass w-full">
+      {/* 1. STICKY HEADER NAVIGATION - wrapped in semantic header for better SEO */}
+      <header>
+        <nav role="navigation" aria-label="Main site navigation" className="nav-liquid-glass w-full">
         <div className="relative z-10 flex justify-between items-center px-6 sm:px-10 py-5 max-w-7xl mx-auto">
           {/* Logo Name */}
           <a ref={navLogoRef} href="#hero" className="flex items-center gap-3 font-headline text-2.5xl font-bold tracking-tight text-brand-charcoal select-none group">
@@ -244,8 +245,11 @@ export default function App() {
             </motion.div>
           )}
         </AnimatePresence>
-      </nav>
+        </nav>
+      </header>
 
+      {/* Main content for semantic landmarks so crawlers and screenreaders can better parse page */}
+      <main>
       {/* 2. HERO LANDING BANNER SECTION */}
       <section id="hero" className="relative min-h-[92vh] flex items-center justify-center pt-32 pb-24 hero-gradient overflow-x-hidden">
         {/* Decorative Sun-Baked Ambient Glow Balls */}
@@ -341,6 +345,7 @@ export default function App() {
                   src={SERVICES_DATA[0].image}
                   alt="High end workspace layout"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
                   className="w-10/12 sm:w-2/3 ml-auto rounded-tl-2xl shadow-2xl transition-transform duration-500 group-hover:scale-102 hover:shadow-brand-charcoal/10"
                 />
               </div>
@@ -507,6 +512,7 @@ export default function App() {
                       src={step.image}
                       alt={step.title}
                       referrerPolicy="no-referrer"
+                      loading="lazy"
                       className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-103 select-none"
                     />
                     <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-6 text-white">
@@ -585,6 +591,7 @@ export default function App() {
                     src={project.image}
                     alt={project.title}
                     referrerPolicy="no-referrer"
+                    loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-102 select-none"
                   />
                 </div>
@@ -666,6 +673,7 @@ export default function App() {
                         src={t.avatar}
                         alt={t.reviewer}
                         referrerPolicy="no-referrer"
+                        loading="lazy"
                         className="w-12 h-12 rounded-full object-cover border border-brand-outline"
                       />
                       <div className="text-left">
@@ -856,6 +864,7 @@ export default function App() {
           </button>
         </div>
       </section>
+      </main>
 
       {/* 9. FOOTER SECTION */}
       <footer className="w-full bg-brand-surface-low border-t border-brand-outline-variant/50 relative z-10">
