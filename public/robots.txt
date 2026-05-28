@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: /sitemap.xml
-Host: https://aptimarksolutions.in
+Sitemap: https://aptimarksolutions.in/sitemap.xml
