@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'motion/react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -164,44 +165,44 @@ export default function App() {
         <nav role="navigation" aria-label="Main site navigation" className="nav-liquid-glass w-full">
         <div className="relative z-10 flex justify-between items-center px-6 sm:px-10 py-5 max-w-7xl mx-auto">
           {/* Logo Name */}
-          <a ref={navLogoRef} href="#hero" className="flex items-center gap-3 font-headline text-2.5xl font-bold tracking-tight text-brand-charcoal select-none group">
+          <Link ref={navLogoRef} href="/" className="flex items-center gap-3 font-headline text-2.5xl font-bold tracking-tight text-brand-charcoal select-none group">
             <img
               src={aptimarkLogo.src}
               alt="Aptimark"
               className="w-9 h-9 object-contain transform -translate-y-0.5"
             />
             <AptimarkWordmark />
-          </a>
+          </Link>
 
           {/* Desktop Links */}
           <div className="hidden md:flex gap-8 items-center">
             {[
-              { label: 'Home', href: '#hero', section: 'home' },
-              { label: 'About', href: '#capabilities', section: 'about' },
-              { label: 'Services', href: '#methodology', section: 'services' },
-              { label: 'Portfolio', href: '#portfolio', section: 'portfolio' },
-              { label: 'Contact', href: '#contact-us', section: 'contact' }
+              { label: 'Home', href: '/', section: 'home' },
+              { label: 'Services', href: '/services', section: 'services' },
+              { label: 'Process', href: '/process', section: 'process' },
+              { label: 'Portfolio', href: '/portfolio', section: 'portfolio' },
+              { label: 'Contact', href: '/contact', section: 'contact' }
             ].map((link) => (
-              <a
+              <Link
                 key={link.label}
                 href={link.href}
                 className={`text-sm tracking-wide font-medium transition-all hover:text-brand-primary cursor-pointer pb-1 border-b-2 ${
-                  activeSection === link.section
+                  link.section === 'home' && activeSection === 'home'
                     ? 'text-brand-primary border-brand-primary'
                     : 'text-brand-text-muted border-transparent hover:border-brand-primary/35'
                 }`}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
 
-            <button
+            <Link
               id="header-nav-cta"
-              onClick={handleScrollToContact}
+              href="/contact"
               className="ml-4 bg-brand-primary text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:scale-101 active:scale-99 transition-all hover:bg-brand-primary/95 cursor-pointer shadow-sm shadow-brand-primary/10"
             >
               Contact Us
-            </button>
+            </Link>
           </div>
 
           {/* Mobile Menu Trigger */}
@@ -227,32 +228,30 @@ export default function App() {
               className="nav-liquid-glass-panel absolute top-full left-0 w-full flex flex-col p-6 space-y-4 z-30"
             >
               {[
-                { label: 'Home', href: '#hero' },
-                { label: 'About', href: '#capabilities' },
-                { label: 'Services', href: '#methodology' },
-                { label: 'Portfolio', href: '#portfolio' },
-                { label: 'Contact', href: '#contact-us' }
+                { label: 'Home', href: '/' },
+                { label: 'Services', href: '/services' },
+                { label: 'Process', href: '/process' },
+                { label: 'Portfolio', href: '/portfolio' },
+                { label: 'Contact', href: '/contact' }
               ].map((link) => (
-                <a
+                <Link
                   key={link.label}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
                   className="font-headline text-2xl text-brand-charcoal hover:text-brand-primary py-2 border-b border-brand-outline-variant/30 text-left transition-colors font-medium"
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
               <div className="pt-4 flex flex-col gap-3">
-                <button
+                <Link
                   id="mobile-cta-get-started"
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    handleScrollToContact();
-                  }}
+                  href="/contact"
+                  onClick={() => setMobileMenuOpen(false)}
                   className="w-full bg-brand-primary text-white text-base font-bold py-4 rounded-xl hover:bg-brand-primary/95 transition-all text-center"
                 >
                   Contact Us
-                </button>
+                </Link>
               </div>
             </motion.div>
           )}
@@ -280,20 +279,20 @@ export default function App() {
           </HeroEntrance>
 
           <HeroEntrance delay={1.15} className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center max-w-md mx-auto items-stretch sm:items-center">
-            <button
+            <Link
               id="hero-cta-start-project"
-              onClick={handleScrollToContact}
+              href="/contact"
               className="bg-brand-primary text-white border border-transparent px-8 py-4.5 rounded-xl font-sans font-bold tracking-wide hover:shadow-lg hover:shadow-brand-primary/20 transition-all hover:scale-[1.01] active:opacity-95 cursor-pointer text-center"
             >
               Start Your Project
-            </button>
-            <a
+            </Link>
+            <Link
               id="hero-cta-view-work"
-              href="#portfolio"
+              href="/portfolio"
               className="border border-brand-outline/80 px-8 py-4.5 rounded-xl font-sans font-bold tracking-wide hover:bg-brand-surface-low transition-all text-center"
             >
               View Our Work
-            </a>
+            </Link>
           </HeroEntrance>
 
           <HeroEntrance delay={1.35} className="pt-20 grid grid-cols-3 max-w-2xl mx-auto gap-4 border-t border-brand-outline-variant/40 mt-12">
@@ -867,13 +866,13 @@ export default function App() {
           <p className="font-sans text-base sm:text-xl text-brand-text-muted max-w-xl mx-auto leading-relaxed gsap-reveal-text">
             Let&apos;s build something exceptional together. Submit a detailed inquiry above, or request immediate discovery.
           </p>
-          <button
+          <Link
             id="footer-action-start-conversation"
-            onClick={handleScrollToContact}
+            href="/contact"
             className="bg-brand-primary text-white px-10 py-5 rounded-xl font-sans font-extrabold text-base sm:text-lg hover:shadow-xl hover:shadow-brand-primary/10 hover:bg-brand-primary/95 transition-all hover:-translate-y-0.5 cursor-pointer shadow-md select-none gsap-reveal-text"
           >
             Start a Conversation
-          </button>
+          </Link>
         </div>
       </section>
       </main>
@@ -898,18 +897,19 @@ export default function App() {
           {/* Nav links */}
           <div className="flex flex-wrap gap-8 justify-center select-none">
             {[
-              { label: "Privacy Policy", href: "#" },
-              { label: "Standard Terms", href: "#" },
-              { label: "Direct Consult", href: "mailto:ksanjuma1234@gmail.com" },
-              { label: "LinkedIn Feed", href: "#" }
+              { label: 'Home', href: '/' },
+              { label: 'Services', href: '/services' },
+              { label: 'Process', href: '/process' },
+              { label: 'Portfolio', href: '/portfolio' },
+              { label: 'Contact', href: '/contact' }
             ].map((link, idx) => (
-              <a
+              <Link
                 key={idx}
                 className="font-sans text-xs uppercase tracking-widest text-[#605850]/80 font-bold hover:text-brand-primary transition-all hover:translate-x-0.5 inline-block"
                 href={link.href}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
         </div>

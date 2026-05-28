@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'motion/react';
 import { Check, ArrowRight, ShieldCheck, Calculator, Loader2, Sparkles, AlertCircle, History } from 'lucide-react';
 import { SERVICES_DATA } from '../data';
@@ -216,12 +217,12 @@ export default function ProjectConfigurator({ initialSelectedServices = [], onSu
                   >
                     Configure New Brief
                   </button>
-                  <a
-                    href="#portfolio"
-                    className="bg-brand-primary text-white rounded-xl px-8 py-3.5 font-sans font-semibold text-sm hover:bg-brand-primary/95 transition-all text-center inline-block"
-                  >
-                    Explore Case Studies
-                  </a>
+                    <Link
+                      href="/portfolio"
+                      className="bg-brand-primary text-white rounded-xl px-8 py-3.5 font-sans font-semibold text-sm hover:bg-brand-primary/95 transition-all text-center inline-block"
+                    >
+                      Explore Case Studies
+                    </Link>
                 </div>
               </motion.div>
             ) : showHistory ? (
