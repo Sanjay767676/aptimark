@@ -1,4 +1,11 @@
 {
+  "version": 2,
+  "outputDirectory": ".next",
+  "build": {
+    "env": {}
+  }
+}
+{
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
     {
