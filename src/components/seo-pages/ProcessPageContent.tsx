@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from 'motion/react';
 import { CheckCircle } from 'lucide-react';
 
 import { PROCESS_DATA } from '../../data';
-import RouteLinks from './RouteLinks';
 
 export default function ProcessPageContent() {
   const [activeProcessStep, setActiveProcessStep] = useState<string>(PROCESS_DATA[0].id);
@@ -115,7 +114,6 @@ export default function ProcessPageContent() {
         </div>
       </section>
 
-      <RouteLinks current="process" />
     </main>
   );
 }

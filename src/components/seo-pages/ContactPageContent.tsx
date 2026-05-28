@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Award, CheckCircle } from 'lucide-react';
 
-import RouteLinks from './RouteLinks';
 
 export default function ContactPageContent() {
   const [contactName, setContactName] = useState('');
@@ -148,7 +147,6 @@ export default function ContactPageContent() {
         </div>
       </section>
 
-      <RouteLinks current="contact" />
     </main>
   );
 }

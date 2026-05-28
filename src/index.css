@@ -59,6 +59,10 @@ body {
   overflow-x: hidden;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .font-headline {
   font-family: 'Eb Garamond', serif;
 }

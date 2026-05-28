@@ -6,7 +6,6 @@ import { ArrowRight } from 'lucide-react';
 import { PORTFOLIO_DATA } from '../../data';
 import { PortfolioProject } from '../../types';
 import ProjectModal from '../ProjectModal';
-import RouteLinks from './RouteLinks';
 
 export default function PortfolioPageContent() {
   const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
@@ -87,8 +86,6 @@ export default function PortfolioPageContent() {
           })}
         </div>
       </section>
-
-      <RouteLinks current="portfolio" />
 
       <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} onOpenEstimator={() => setSelectedProject(null)} />
     </main>

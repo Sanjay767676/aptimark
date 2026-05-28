@@ -6,7 +6,6 @@ import { ArrowRight, Globe, RefreshCw, Search, Settings, Smartphone } from 'luci
 import { SERVICES_DATA } from '../../data';
 import { Service } from '../../types';
 import ServiceModal from '../ServiceModal';
-import RouteLinks from './RouteLinks';
 
 const renderServiceIcon = (iconName: string, className = 'text-brand-primary text-3xl') => {
   switch (iconName) {
@@ -173,8 +172,6 @@ export default function ServicesPageContent() {
           </div>
         </div>
       </section>
-
-      <RouteLinks current="services" />
 
       <ServiceModal
         service={selectedService}
