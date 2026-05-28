@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from 'motion/react';
 
 interface LetterRevealProps {
@@ -32,7 +34,7 @@ export default function LetterReveal({
       opacity: 1,
       transition: {
         duration: duration,
-        ease: [0.215, 0.61, 0.355, 1], // Custom sleek cubic bezier (easeOutCubic)
+          ease: [0.215, 0.61, 0.355, 1] as const, // Custom sleek cubic bezier (easeOutCubic)
       },
     },
   };

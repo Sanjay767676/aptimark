@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Check, ArrowRight, ShieldCheck, Calculator, Loader2, Sparkles, AlertCircle, History } from 'lucide-react';

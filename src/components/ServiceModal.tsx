@@ -1,3 +1,5 @@
+"use client";
+
 import { motion, AnimatePresence } from 'motion/react';
 import { X, CheckCircle, Flame, ArrowRight, ShieldCheck } from 'lucide-react';
 import { Service } from '../types';

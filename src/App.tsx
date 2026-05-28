@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import gsap from 'gsap';
@@ -36,7 +38,7 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function App() {
   // Navigation active anchors tracker
-  const [activeSection, setActiveSection] = useState('hero');
+  const [activeSection, setActiveSection] = useState('home');
 
   // Mobile menu visibility
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -84,7 +86,17 @@ export default function App() {
         const current = visibleEntries[0];
         if (!current?.target.id) return;
 
-        setActiveSection(current.target.id === 'contact-us' ? 'contact' : current.target.id);
+        const nextSection = current.target.id === 'hero'
+          ? 'home'
+          : current.target.id === 'capabilities'
+            ? 'about'
+            : current.target.id === 'methodology'
+              ? 'services'
+              : current.target.id === 'contact-us'
+                ? 'contact'
+                : current.target.id;
+
+        setActiveSection(nextSection);
       },
       {
         root: null,
@@ -154,7 +166,7 @@ export default function App() {
           {/* Logo Name */}
           <a ref={navLogoRef} href="#hero" className="flex items-center gap-3 font-headline text-2.5xl font-bold tracking-tight text-brand-charcoal select-none group">
             <img
-              src={aptimarkLogo}
+              src={aptimarkLogo.src}
               alt="Aptimark"
               className="w-9 h-9 object-contain transform -translate-y-0.5"
             />
@@ -164,11 +176,11 @@ export default function App() {
           {/* Desktop Links */}
           <div className="hidden md:flex gap-8 items-center">
             {[
-              { label: 'Capabilities', href: '#capabilities', section: 'capabilities' },
-              { label: 'Process', href: '#methodology', section: 'methodology' },
-              { label: 'Selected Works', href: '#portfolio', section: 'portfolio' },
-              { label: 'Testimonials', href: '#testimonials', section: 'testimonials' },
-              { label: 'Consultation', href: '#contact-us', section: 'contact' }
+              { label: 'Home', href: '#hero', section: 'home' },
+              { label: 'About', href: '#capabilities', section: 'about' },
+              { label: 'Services', href: '#methodology', section: 'services' },
+              { label: 'Portfolio', href: '#portfolio', section: 'portfolio' },
+              { label: 'Contact', href: '#contact-us', section: 'contact' }
             ].map((link) => (
               <a
                 key={link.label}
@@ -188,7 +200,7 @@ export default function App() {
               onClick={handleScrollToContact}
               className="ml-4 bg-brand-primary text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:scale-101 active:scale-99 transition-all hover:bg-brand-primary/95 cursor-pointer shadow-sm shadow-brand-primary/10"
             >
-              Get Started
+              Contact Us
             </button>
           </div>
 
@@ -215,11 +227,11 @@ export default function App() {
               className="nav-liquid-glass-panel absolute top-full left-0 w-full flex flex-col p-6 space-y-4 z-30"
             >
               {[
-                { label: 'Capabilities', href: '#capabilities' },
-                { label: 'Methodology & Process', href: '#methodology' },
-                { label: 'Selected Works', href: '#portfolio' },
-                { label: 'Testimonials', href: '#testimonials' },
-                { label: 'Inquiry & Consultation', href: '#contact-us' }
+                { label: 'Home', href: '#hero' },
+                { label: 'About', href: '#capabilities' },
+                { label: 'Services', href: '#methodology' },
+                { label: 'Portfolio', href: '#portfolio' },
+                { label: 'Contact', href: '#contact-us' }
               ].map((link) => (
                 <a
                   key={link.label}
@@ -239,7 +251,7 @@ export default function App() {
                   }}
                   className="w-full bg-brand-primary text-white text-base font-bold py-4 rounded-xl hover:bg-brand-primary/95 transition-all text-center"
                 >
-                  Start Your Consultation
+                  Contact Us
                 </button>
               </div>
             </motion.div>
@@ -299,15 +311,15 @@ export default function App() {
         </div>
       </section>
 
-      {/* 3. CAPABILITIES / SERVICES DYNAMIC SECTION */}
+      {/* 3. ABOUT / SERVICES DYNAMIC SECTION */}
       <section id="capabilities" className="py-28 px-6 sm:px-10 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8 border-b border-brand-outline-variant/30 pb-10">
           <div className="max-w-xl text-left">
             <span className="font-sans text-xs uppercase tracking-widest text-[#c2652a] font-bold mb-3 block gsap-line-reveal">
-              What We Do Best
+              About Aptimark
             </span>
             <h2 className="font-headline text-4xl sm:text-5xl lg:text-6xl text-brand-charcoal font-semibold tracking-tight gsap-mask-reveal">
-              Our expertise,<br />curated for growth.
+              Digital architecture built<br />for growth.
             </h2>
           </div>
           <p className="font-sans text-brand-text-muted max-w-sm text-base leading-relaxed text-left md:text-right gsap-reveal-text">
@@ -458,12 +470,12 @@ export default function App() {
         </div>
       </section>
 
-      {/* 4. PROCESS METHODOLOGY IMMERSIVE HORIZONTAL TIMELINE ROW */}
+      {/* 4. SERVICES METHODOLOGY IMMERSIVE HORIZONTAL TIMELINE ROW */}
       <section id="methodology" className="py-28 bg-brand-surface-low overflow-hidden">
         <div className="px-6 sm:px-10 max-w-7xl mx-auto mb-16 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 text-left">
           <div className="max-w-xl">
             <span className="font-sans text-xs uppercase tracking-widest text-brand-primary font-bold mb-3 block gsap-line-reveal">
-              The Methodology
+              Services
             </span>
             <h2 className="font-headline text-4xl sm:text-5xl lg:text-6xl text-brand-charcoal font-semibold tracking-tight gsap-mask-reveal">
               Crafting with <br />disciplined intent.
@@ -636,11 +648,11 @@ export default function App() {
         </div>
       </section>
 
-      {/* 6. TESTIMONIAL SLIDER CAROUSEL SECTION */}
+      {/* 6. CLIENT REVIEWS SLIDER CAROUSEL SECTION */}
       <section id="testimonials" className="py-24 bg-brand-surface-container border-y border-brand-outline-variant/40">
         <div className="max-w-4xl mx-auto px-6 text-center space-y-10 relative gsap-reveal">
           <span className="font-sans text-xs uppercase tracking-widest text-[#c2652a] font-bold block gsap-line-reveal">
-            Direct Client Appraisals
+            Client Reviews
           </span>
 
           <div className="relative min-h-[220px] flex items-center justify-center gsap-reveal-text">
@@ -712,13 +724,13 @@ export default function App() {
         </div>
       </section>
 
-      {/* 7. CONNECT & COLLABORATE FORM BLOCK */}
+      {/* 7. CONTACT & COLLABORATE FORM BLOCK */}
       <section id="contact-us" className="py-28 px-6 sm:px-10 bg-brand-surface-container border-y border-brand-outline-variant/30 scroll-mt-20">
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
           {/* Left Column Text Detail */}
           <div className="md:col-span-5 text-left space-y-6">
             <span className="font-sans text-xs uppercase tracking-widest text-brand-primary font-bold block gsap-reveal-text">
-              Direct Access
+              Contact
             </span>
             <h2 className="font-headline text-4xl sm:text-5xl text-brand-charcoal font-semibold leading-tight gsap-mask-reveal">
               Connect with <br />our architects.
@@ -872,7 +884,7 @@ export default function App() {
           <div className="text-center md:text-left space-y-2">
             <span className="flex items-center justify-center md:justify-start gap-2.5 font-headline text-2xl font-bold tracking-tight text-brand-charcoal select-none">
               <img
-                src={aptimarkLogo}
+                src={aptimarkLogo.src}
                 alt="Aptimark"
                 className="w-7 h-7 object-contain"
               />

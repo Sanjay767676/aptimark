@@ -1,3 +1,5 @@
+"use client";
+
 import { motion, AnimatePresence } from 'motion/react';
 import { X, CheckCircle, ArrowRight, TrendingUp, Info } from 'lucide-react';
 import { PortfolioProject } from '../types';

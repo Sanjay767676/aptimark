@@ -1,3 +1,5 @@
+"use client";
+
 import { useRef, type ReactNode } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
