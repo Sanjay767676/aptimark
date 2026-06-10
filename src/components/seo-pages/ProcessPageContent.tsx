@@ -114,6 +114,30 @@ export default function ProcessPageContent() {
         </div>
       </section>
 
+      <section aria-labelledby="process-map-heading" className="py-24 px-6 sm:px-10 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 border-t border-brand-outline-variant/35 pt-14">
+          <div className="lg:col-span-4 text-left">
+            <span className="font-sans text-xs uppercase tracking-widest text-brand-primary font-bold mb-3 block">
+              Workflow Map
+            </span>
+            <h2 id="process-map-heading" className="font-headline text-3.5xl sm:text-4.5xl text-brand-charcoal font-semibold">
+              A crawlable view of the full delivery process.
+            </h2>
+          </div>
+
+          <ol className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+            {PROCESS_DATA.map((step) => (
+              <li key={step.id} className="bg-white border border-brand-outline/25 rounded-2xl p-6 text-left shadow-sm">
+                <span className="font-headline text-4xl font-extrabold text-[#c2652a]/25 block">{step.numberString}</span>
+                <h3 className="font-headline text-2xl text-brand-charcoal font-semibold mt-3 mb-3">{step.title}</h3>
+                <p className="font-sans text-brand-text-muted text-sm leading-relaxed">{step.description}</p>
+                <p className="font-sans text-brand-charcoal text-sm leading-relaxed mt-4">{step.detailedNotes}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
     </main>
   );
 }

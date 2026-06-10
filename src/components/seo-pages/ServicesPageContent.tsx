@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ArrowRight, Globe, RefreshCw, Search, Settings, Smartphone } from 'lucide-react';
 
 import { SERVICES_DATA } from '../../data';
+import { SERVICE_FAQS } from '../../seo';
 import { Service } from '../../types';
 import ServiceModal from '../ServiceModal';
 
@@ -139,7 +140,7 @@ export default function ServicesPageContent() {
             >
               <div className="space-y-6">
                 {renderServiceIcon('Smartphone')}
-                <h3 className="font-headline text-2.5xl font-semibold text-brand-charcoal">{SERVICES_DATA[3].title}</h3>
+                <h2 className="font-headline text-2.5xl font-semibold text-brand-charcoal">{SERVICES_DATA[3].title}</h2>
                 <p className="font-sans text-sm sm:text-base text-brand-text-muted leading-relaxed">
                   {SERVICES_DATA[3].description}
                 </p>
@@ -158,7 +159,7 @@ export default function ServicesPageContent() {
             >
               <div className="space-y-6">
                 {renderServiceIcon('Settings')}
-                <h3 className="font-headline text-2.5xl font-semibold text-brand-charcoal">{SERVICES_DATA[4].title}</h3>
+                <h2 className="font-headline text-2.5xl font-semibold text-brand-charcoal">{SERVICES_DATA[4].title}</h2>
                 <p className="font-sans text-sm sm:text-base text-brand-text-muted leading-relaxed">
                   {SERVICES_DATA[4].description}
                 </p>
@@ -169,6 +170,28 @@ export default function ServicesPageContent() {
                 <ArrowRight size={14} className="group-hover:translate-x-1 transition-all" />
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="services-faq-heading" className="px-6 sm:px-10 pb-28 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 border-t border-brand-outline-variant/35 pt-14">
+          <div className="lg:col-span-4 text-left">
+            <span className="font-sans text-xs uppercase tracking-widest text-brand-primary font-bold mb-3 block">
+              Service FAQ
+            </span>
+            <h2 id="services-faq-heading" className="font-headline text-3.5xl sm:text-4.5xl text-brand-charcoal font-semibold">
+              Answers before the first call.
+            </h2>
+          </div>
+
+          <div className="lg:col-span-8 divide-y divide-brand-outline-variant/35">
+            {SERVICE_FAQS.map((faq) => (
+              <article key={faq.question} className="py-7 text-left">
+                <h3 className="font-headline text-2xl text-brand-charcoal font-semibold mb-3">{faq.question}</h3>
+                <p className="font-sans text-brand-text-muted text-base leading-relaxed">{faq.answer}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>

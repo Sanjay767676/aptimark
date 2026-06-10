@@ -165,25 +165,25 @@ export default function App() {
         <nav role="navigation" aria-label="Main site navigation" className="nav-liquid-glass w-full">
         <div className="relative z-10 flex justify-between items-center px-6 sm:px-10 py-5 max-w-7xl mx-auto">
           {/* Logo Name */}
-          <a ref={navLogoRef} href="#hero" className="flex items-center gap-3 font-headline text-2.5xl font-bold tracking-tight text-brand-charcoal select-none group">
+          <Link ref={navLogoRef} href="/" className="flex items-center gap-3 font-headline text-2.5xl font-bold tracking-tight text-brand-charcoal select-none group">
             <img
               src={aptimarkLogo.src}
               alt="Aptimark"
               className="w-9 h-9 object-contain transform -translate-y-0.5"
             />
             <AptimarkWordmark />
-          </a>
+          </Link>
 
           {/* Desktop Links */}
           <div className="hidden md:flex gap-8 items-center">
             {[
-              { label: 'Home', href: '#hero', section: 'home' },
-              { label: 'About', href: '#capabilities', section: 'about' },
-              { label: 'Services', href: '#methodology', section: 'services' },
-              { label: 'Portfolio', href: '#portfolio', section: 'portfolio' },
-              { label: 'Contact', href: '#contact-us', section: 'contact' }
+              { label: 'Home', href: '/', section: 'home' },
+              { label: 'Services', href: '/services', section: 'about' },
+              { label: 'Process', href: '/process', section: 'services' },
+              { label: 'Portfolio', href: '/portfolio', section: 'portfolio' },
+              { label: 'Contact', href: '/contact', section: 'contact' }
             ].map((link) => (
-              <a
+              <Link
                 key={link.label}
                 href={link.href}
                 className={`text-sm tracking-wide font-medium transition-all hover:text-brand-primary cursor-pointer pb-1 border-b-2 ${
@@ -193,16 +193,16 @@ export default function App() {
                 }`}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
 
-            <button
+            <Link
               id="header-nav-cta"
-              onClick={handleScrollToContact}
+              href="/contact"
               className="ml-4 bg-brand-primary text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:scale-101 active:scale-99 transition-all hover:bg-brand-primary/95 cursor-pointer shadow-sm shadow-brand-primary/10"
             >
               Contact Us
-            </button>
+            </Link>
           </div>
 
           {/* Mobile Menu Trigger */}
@@ -228,32 +228,30 @@ export default function App() {
               className="nav-liquid-glass-panel absolute top-full left-0 w-full flex flex-col p-6 space-y-4 z-30"
             >
               {[
-                { label: 'Home', href: '#hero' },
-                { label: 'About', href: '#capabilities' },
-                { label: 'Services', href: '#methodology' },
-                { label: 'Portfolio', href: '#portfolio' },
-                { label: 'Contact', href: '#contact-us' }
+                { label: 'Home', href: '/' },
+                { label: 'Services', href: '/services' },
+                { label: 'Process', href: '/process' },
+                { label: 'Portfolio', href: '/portfolio' },
+                { label: 'Contact', href: '/contact' }
               ].map((link) => (
-                <a
+                <Link
                   key={link.label}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
                   className="font-headline text-2xl text-brand-charcoal hover:text-brand-primary py-2 border-b border-brand-outline-variant/30 text-left transition-colors font-medium"
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
               <div className="pt-4 flex flex-col gap-3">
-                <button
+                <Link
                   id="mobile-cta-get-started"
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    handleScrollToContact();
-                  }}
+                  href="/contact"
+                  onClick={() => setMobileMenuOpen(false)}
                   className="w-full bg-brand-primary text-white text-base font-bold py-4 rounded-xl hover:bg-brand-primary/95 transition-all text-center"
                 >
                   Contact Us
-                </button>
+                </Link>
               </div>
             </motion.div>
           )}

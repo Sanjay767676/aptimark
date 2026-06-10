@@ -87,6 +87,60 @@ export default function PortfolioPageContent() {
         </div>
       </section>
 
+      <section aria-labelledby="portfolio-detail-heading" className="px-6 sm:px-10 pb-28 max-w-7xl mx-auto">
+        <div className="border-t border-brand-outline-variant/35 pt-14">
+          <div className="max-w-3xl text-left mb-12">
+            <span className="font-sans text-xs uppercase tracking-widest text-brand-primary font-bold mb-3 block">
+              Case Study Signals
+            </span>
+            <h2 id="portfolio-detail-heading" className="font-headline text-3.5xl sm:text-4.5xl text-brand-charcoal font-semibold">
+              Outcomes, constraints, and implementation details.
+            </h2>
+          </div>
+
+          <div className="space-y-10">
+            {PORTFOLIO_DATA.map((project) => (
+              <article key={project.id} className="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-white border border-brand-outline/25 rounded-2xl p-6 sm:p-8 text-left shadow-sm">
+                <div className="lg:col-span-4">
+                  <span className="font-sans text-xs uppercase tracking-widest text-brand-primary font-bold block mb-3">
+                    {project.category}
+                  </span>
+                  <h3 className="font-headline text-3xl text-brand-charcoal font-semibold">{project.title}</h3>
+                  <p className="font-sans text-brand-text-muted text-sm leading-relaxed mt-4">{project.challenge}</p>
+                </div>
+
+                <div className="lg:col-span-5">
+                  <h4 className="font-sans text-xs uppercase tracking-widest text-brand-charcoal font-bold mb-4">
+                    What Aptimark Delivered
+                  </h4>
+                  <ul className="space-y-3">
+                    {project.solutions.map((solution) => (
+                      <li key={solution} className="font-sans text-sm text-brand-text-muted leading-relaxed border-l border-brand-primary/35 pl-4">
+                        {solution}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="lg:col-span-3">
+                  <h4 className="font-sans text-xs uppercase tracking-widest text-brand-charcoal font-bold mb-4">
+                    Reported Outcomes
+                  </h4>
+                  <dl className="grid grid-cols-1 gap-4">
+                    {project.outcomes.map((outcome) => (
+                      <div key={outcome.label} className="border-b border-brand-outline-variant/35 pb-3">
+                        <dt className="font-sans text-[11px] text-brand-text-muted uppercase tracking-wider">{outcome.label}</dt>
+                        <dd className="font-headline text-2xl font-bold text-brand-charcoal">{outcome.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} onOpenEstimator={() => setSelectedProject(null)} />
     </main>
   );

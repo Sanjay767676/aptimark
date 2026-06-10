@@ -11,22 +11,22 @@ const nextConfig = {
     return [
       {
         source: '/services.html',
-        destination: '/#capabilities',
+        destination: '/services',
         permanent: true,
       },
       {
         source: '/process.html',
-        destination: '/#methodology',
+        destination: '/process',
         permanent: true,
       },
       {
         source: '/portfolio.html',
-        destination: '/#portfolio',
+        destination: '/portfolio',
         permanent: true,
       },
       {
         source: '/contact.html',
-        destination: '/#contact-us',
+        destination: '/contact',
         permanent: true,
       },
     ];

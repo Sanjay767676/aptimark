@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { motion } from 'motion/react';
 import { ArrowRight, Award, CheckCircle } from 'lucide-react';
 
@@ -143,6 +144,52 @@ export default function ContactPageContent() {
                 </button>
               </form>
             )}
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="contact-context-heading" className="py-24 px-6 sm:px-10 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 border-t border-brand-outline-variant/35 pt-14">
+          <div className="lg:col-span-5 text-left">
+            <span className="font-sans text-xs uppercase tracking-widest text-brand-primary font-bold block mb-3">
+              Project Intake
+            </span>
+            <h2 id="contact-context-heading" className="font-headline text-3.5xl sm:text-4.5xl text-brand-charcoal font-semibold">
+              Tell us what needs to perform.
+            </h2>
+            <p className="font-sans text-brand-text-muted text-base leading-relaxed mt-5">
+              Aptimark Solutions works with businesses in Coimbatore, Tamil Nadu, and remote teams across India that
+              need SEO-friendly websites, app interfaces, software migrations, and custom digital systems.
+            </p>
+          </div>
+
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-5">
+            {[
+              {
+                title: 'Review Services',
+                href: '/services',
+                copy: 'Compare website development, SEO strategy, app development, refactoring, and custom IT solutions.',
+              },
+              {
+                title: 'See Process',
+                href: '/process',
+                copy: 'Understand how Aptimark moves from discovery to design, build, launch, and validation.',
+              },
+              {
+                title: 'View Portfolio',
+                href: '/portfolio',
+                copy: 'Browse selected case studies, constraints, implementation details, and reported outcomes.',
+              },
+            ].map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="bg-white border border-brand-outline/25 rounded-2xl p-6 text-left shadow-sm hover:-translate-y-1 hover:border-brand-primary/35 transition-all"
+              >
+                <h3 className="font-headline text-2xl text-brand-charcoal font-semibold mb-3">{item.title}</h3>
+                <p className="font-sans text-brand-text-muted text-sm leading-relaxed">{item.copy}</p>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
