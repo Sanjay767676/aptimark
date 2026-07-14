@@ -61,7 +61,7 @@ export default function ProcessPageContent() {
                   <div className="lg:col-span-5 relative group overflow-hidden rounded-2xl aspect-[4/3] lg:aspect-[4/5] h-full max-h-[380px] lg:max-h-[480px]">
                     <img
                       src={step.image}
-                      alt={step.title}
+                      alt={`Aptimark ${step.title} phase - ${step.description.slice(0, 80)}`}
                       referrerPolicy="no-referrer"
                       loading="lazy"
                       className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-103 select-none"

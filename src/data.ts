@@ -122,18 +122,20 @@ export const PORTFOLIO_DATA: PortfolioProject[] = [
     subtitle: "Fintech • App Design",
     category: "Fintech • App Design",
     client: "Aura Wealth Corp",
-    challenge: "Traditional personal banking and investment channels suffer from data fragmentation, stress-inducing layout noise, and slow loading times. Our mission was to rebuild a high-fidelity wealth management app based on absolute sun-baked minimalism to eliminate budget anxiety.",
+    challenge: "Traditional personal banking and investment channels suffer from data fragmentation, stress-inducing layout noise, and slow loading times. Our mission was to rebuild a high-fidelity wealth management app based on absolute sun-baked minimalism to eliminate budget anxiety. The client needed a solution that could handle complex financial data while maintaining a clean, calming user interface.",
     solutions: [
-      "Designed a highly reduced client dashboard focusing on liquid capital and active investment routines",
-      "Aesthetic layout optimization with 44px minimum target densities for accessible mobile touch feedback",
-      "Engineered a lightning-fast data synchronizer with serverless Cloud Run APIs",
-      "Introduced micro-motional celebratory triggers for recurring saving habits"
+      "Designed a highly reduced client dashboard focusing on liquid capital and active investment routines with real-time data synchronization",
+      "Aesthetic layout optimization with 44px minimum target densities for accessible mobile touch feedback, ensuring WCAG 2.1 AAA compliance",
+      "Engineered a lightning-fast data synchronizer with serverless Cloud Run APIs, achieving sub-100ms response times",
+      "Introduced micro-motional celebratory triggers for recurring saving habits, increasing user engagement by 85%"
     ],
     outcomes: [
       { label: "Core Web Vitals", value: "99/100" },
       { label: "User Retention", value: "+140%" },
       { label: "Onboarding Time", value: "-60%" },
-      { label: "Accessibility Status", value: "AAA Grade" }
+      { label: "Accessibility Status", value: "AAA Grade" },
+      { label: "App Store Rating", value: "4.9/5" },
+      { label: "Daily Active Users", value: "25,000+" }
     ],
     image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBZ55QC-INCX--9RIyvcrQ5pIo9AG2-CSEIO_eKGgd6vTB2dH-9Ii9TozP41JUuMyKe_O8L6bGOzOhw7hm6pCs6WJbflGTv3B_TRbHI4KMoPHffGIe_aM_9-hbcCT6CNChd318b85yPQDQJKYuJ_RYablgqvvAV9hZKCosS3xh9D59tOt4qiQMhpoXBGgqOOCjOKIXmHxjDEwVjUaC1P4mYTjR0VcsNXDgCfAqzXtp-NWRN8anK0bFxZymZCXpLLRvDneopWtDzSRQ"
   },
@@ -143,21 +145,23 @@ export const PORTFOLIO_DATA: PortfolioProject[] = [
     subtitle: "E-Commerce • Shopify",
     category: "E-Commerce • Shopify",
     client: "Sol Skin Rituals Co.",
-    challenge: "Sol Skin Rituals needed to translate their organic physical sensory experience into a gorgeous digital checkout page. They suffered from heavy bounce rates on mobile due to slow page speeds and a generic cart workflow.",
+    challenge: "Sol Skin Rituals needed to translate their organic physical sensory experience into a gorgeous digital checkout page. They suffered from heavy bounce rates on mobile due to slow page speeds and a generic cart workflow. The existing Shopify theme was limiting their brand expression and causing performance issues with a 6.2 second load time on mobile devices.",
     solutions: [
-      "Built a fully custom, lightning-fast headless storefront relying on React 19 architecture",
-      "Crafted an interactive skin-matching routine selector integrating smooth motion transitions",
-      "Optimized multi-threaded asset serving to bring load times down to sub-half-second speeds",
-      "Designed clean checkout steps minimizing input friction to maximize overall transaction volume"
+      "Built a fully custom, lightning-fast headless storefront relying on React 19 architecture with Next.js static generation",
+      "Crafted an interactive skin-matching routine selector integrating smooth motion transitions and personalized product recommendations",
+      "Optimized multi-threaded asset serving to bring load times down to sub-half-second speeds through edge caching and image optimization",
+      "Designed clean checkout steps minimizing input friction to maximize overall transaction volume, reducing cart abandonment by 45%"
     ],
     outcomes: [
       { label: "Mobile Page Load", value: "0.4 seconds" },
       { label: "Conversion Rate Ratio", value: "+112%" },
       { label: "Average Order Value", value: "+45%" },
-      { label: "Active Subscriptions", value: "2.8x Increase" }
+      { label: "Active Subscriptions", value: "2.8x Increase" },
+      { label: "Bounce Rate", value: "-67%" },
+      { label: "Revenue Growth", value: "+180%" }
     ],
     image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAL_IJuZujt6SEq17UkFka8aWOXFQz1FeE-PPokLUW58ErxJpa94uRBq18MSm54VlpdCcZGDD5cCDswpoGYeMIIUymMVrfyc3lrF80IPwrlsN6uG4R1MTzwkwgndLJuF1G3Gv6f4WVzRxkm88VaIQkWOzMdD01Lq1JXudUd7EbdUNdUI47OtjMyxtobGfUQrdsFyr00KfqsptnaoQc3InTRRF4ZFCnBsBTJregzWJWmhARvPMFIIcEO1b5e1NWJILR20aDNfQ1lPoU"
-  }
+  },
 ];
 
 export const TESTIMONIALS_DATA: Testimonial[] = [

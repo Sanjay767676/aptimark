@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { ArrowRight, Globe, RefreshCw, Search, Settings, Smartphone } from 'lucide-react';
 
 import { SERVICES_DATA } from '../../data';
-import { SERVICE_FAQS } from '../../seo';
+import { EXPANDED_SERVICE_FAQS } from '../../seo';
 import { Service } from '../../types';
 import ServiceModal from '../ServiceModal';
 
@@ -72,7 +72,7 @@ export default function ServicesPageContent() {
               <div className="relative mt-4">
                 <img
                   src={SERVICES_DATA[0].image}
-                  alt="High end workspace layout"
+                  alt="Aptimark Solutions web development workspace showcasing modern React and Next.js development environment with performance optimization tools"
                   referrerPolicy="no-referrer"
                   loading="lazy"
                   className="w-10/12 sm:w-2/3 ml-auto rounded-tl-2xl shadow-2xl transition-transform duration-500 group-hover:scale-102 hover:shadow-brand-charcoal/10"
@@ -186,7 +186,7 @@ export default function ServicesPageContent() {
           </div>
 
           <div className="lg:col-span-8 divide-y divide-brand-outline-variant/35">
-            {SERVICE_FAQS.map((faq) => (
+            {EXPANDED_SERVICE_FAQS.map((faq) => (
               <article key={faq.question} className="py-7 text-left">
                 <h3 className="font-headline text-2xl text-brand-charcoal font-semibold mb-3">{faq.question}</h3>
                 <p className="font-sans text-brand-text-muted text-base leading-relaxed">{faq.answer}</p>

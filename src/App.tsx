@@ -178,9 +178,11 @@ export default function App() {
           <div className="hidden md:flex gap-8 items-center">
             {[
               { label: 'Home', href: '/', section: 'home' },
-              { label: 'Services', href: '/services', section: 'about' },
-              { label: 'Process', href: '/process', section: 'services' },
+              { label: 'About', href: '/about', section: 'about' },
+              { label: 'Services', href: '/services', section: 'services' },
+              { label: 'Process', href: '/process', section: 'methodology' },
               { label: 'Portfolio', href: '/portfolio', section: 'portfolio' },
+              { label: 'Blog', href: '/blog', section: 'blog' },
               { label: 'Contact', href: '/contact', section: 'contact' }
             ].map((link) => (
               <Link
@@ -229,9 +231,11 @@ export default function App() {
             >
               {[
                 { label: 'Home', href: '/' },
+                { label: 'About', href: '/about' },
                 { label: 'Services', href: '/services' },
                 { label: 'Process', href: '/process' },
                 { label: 'Portfolio', href: '/portfolio' },
+                { label: 'Blog', href: '/blog' },
                 { label: 'Contact', href: '/contact' }
               ].map((link) => (
                 <Link
@@ -357,7 +361,7 @@ export default function App() {
               <div className="relative mt-4">
                 <img
                   src={SERVICES_DATA[0].image}
-                  alt="High end workspace layout"
+                  alt="Aptimark Solutions web development workspace showing modern React and Next.js development environment"
                   referrerPolicy="no-referrer"
                   loading="lazy"
                   className="w-10/12 sm:w-2/3 ml-auto rounded-tl-2xl shadow-2xl transition-transform duration-500 group-hover:scale-102 hover:shadow-brand-charcoal/10"
@@ -527,7 +531,7 @@ export default function App() {
                   <div className="lg:col-span-5 relative group overflow-hidden rounded-2xl aspect-[4/3] lg:aspect-[4/5] h-full max-h-[380px] lg:max-h-[480px]">
                     <img
                       src={step.image}
-                      alt={step.title}
+                      alt={`Aptimark ${step.title} phase - ${step.description.slice(0, 80)}`}
                       referrerPolicy="no-referrer"
                       loading="lazy"
                       className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-103 select-none"
@@ -609,7 +613,7 @@ export default function App() {
                   <div className="absolute inset-0 bg-brand-primary/20 opacity-0 group-hover:opacity-100 transition-opacity z-10 duration-500 pointer-events-none" />
                   <img
                     src={project.image}
-                    alt={project.title}
+                    alt={`${project.title} - Aptimark Solutions ${project.category} case study showing ${project.outcomes[0]?.label || 'results'}`}
                     referrerPolicy="no-referrer"
                     loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-102 select-none"
@@ -691,7 +695,7 @@ export default function App() {
                     <div className="flex items-center gap-3 justify-center pt-4">
                       <img
                         src={t.avatar}
-                        alt={t.reviewer}
+                        alt={`${t.reviewer} - ${t.company} client testimonial for Aptimark Solutions`}
                         referrerPolicy="no-referrer"
                         loading="lazy"
                         className="w-12 h-12 rounded-full object-cover border border-brand-outline"
@@ -910,9 +914,11 @@ export default function App() {
           <div className="flex flex-wrap gap-8 justify-center select-none">
             {[
               { label: 'Home', href: '/' },
+              { label: 'About', href: '/about' },
               { label: 'Services', href: '/services' },
               { label: 'Process', href: '/process' },
               { label: 'Portfolio', href: '/portfolio' },
+              { label: 'Blog', href: '/blog' },
               { label: 'Contact', href: '/contact' }
             ].map((link, idx) => (
               <Link

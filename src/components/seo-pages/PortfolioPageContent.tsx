@@ -38,7 +38,7 @@ export default function PortfolioPageContent() {
                   <div className="absolute inset-0 bg-brand-primary/20 opacity-0 group-hover:opacity-100 transition-opacity z-10 duration-500 pointer-events-none" />
                   <img
                     src={project.image}
-                    alt={project.title}
+                    alt={`${project.title} - Aptimark Solutions ${project.category} case study showing ${project.outcomes[0]?.label || 'results'}`}
                     referrerPolicy="no-referrer"
                     loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-102 select-none"

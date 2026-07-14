@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import JsonLd from '../../components/JsonLd';
 import SiteChrome from '../../components/SiteChrome';
 import PortfolioPageContent from '../../components/seo-pages/PortfolioPageContent';
-import { breadcrumbJsonLd, SITE_NAME, SITE_URL, webPageJsonLd } from '../../seo';
+import { breadcrumbJsonLd, portfolioJsonLd, SITE_NAME, SITE_URL, webPageJsonLd } from '../../seo';
+import { PORTFOLIO_DATA } from '../../data';
 
 const pageDescription =
   'Browse Aptimark Solutions portfolio case studies, outcomes, and selected work across fintech, e-commerce, performance design, and web app delivery.';
@@ -39,6 +40,7 @@ export default function PortfolioPage() {
             path: '/portfolio',
           }),
           breadcrumbJsonLd(breadcrumbItems),
+          portfolioJsonLd(PORTFOLIO_DATA),
         ]}
       />
       <PortfolioPageContent />

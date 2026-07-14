@@ -4,6 +4,7 @@ import SiteChrome from '../../components/SiteChrome';
 import ServicesPageContent from '../../components/seo-pages/ServicesPageContent';
 import {
   breadcrumbJsonLd,
+  EXPANDED_SERVICE_FAQS,
   faqJsonLd,
   serviceCatalogJsonLd,
   SITE_NAME,
@@ -47,7 +48,7 @@ export default function ServicesPage() {
           }),
           breadcrumbJsonLd(breadcrumbItems),
           serviceCatalogJsonLd(),
-          faqJsonLd(),
+          faqJsonLd(EXPANDED_SERVICE_FAQS),
         ]}
       />
       <ServicesPageContent />
